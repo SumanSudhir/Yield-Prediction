@@ -7,8 +7,8 @@ import scipy.stats as stats
 
 
 
-def processGndData(df):
-    # df  = pd.read_excel(filepath)
+def processGndData(filepath):
+    df  = pd.read_excel(filepath)
     df = df[df.columns[[1,2,3]]]
     LB = df['Leaf Biomass (Kg/ha)'].values
     SB = df['Stem Biomass (Kg/ha)'].values
@@ -34,12 +34,12 @@ def processGndData(df):
 
     return df_new
 
-def processDroneData(df, dfd):
+def processDroneData(df, filepath):
     SLA = df['SLA']
     mean = np.mean(SLA)
     std = np.std(SLA)
 
-    # dfd = pd.read_excel(filepath)
+    dfd = pd.read_excel(filepath)
     n_plots = dfd.shape[0]
     n_days = dfd.shape[1]-1
     dfd_new = pd.DataFrame()
