@@ -21,6 +21,8 @@ app = Flask(__name__)
 PEOPLE_FOLDER = os.path.join('static', 'image_folder')
 app.config['UPLOAD_FOLDER'] = PEOPLE_FOLDER
 
+df = []
+
 # Model saved
 
 @app.route('/')
@@ -34,7 +36,8 @@ def upload_file():
     if request.method == 'POST':
         if request.files:
             f = request.files['file']
-            f.save(os.path.join(app.config['UPLOAD_FOLDER'],f.filename))
+            df.append(pd.read_excel(f))
+            # f.save(os.path.join(app.config['UPLOAD_FOLDER'],f.filename))
             print("Saved")
         return redirect(request.url)
 
@@ -42,11 +45,11 @@ def upload_file():
 
 
 @app.route('/predict', methods=['POST'])
-
-
 def predict():
-    df_new = processGndData(os.path.join(app.config['UPLOAD_FOLDER'],'GNR631_GroundTruth.xlsx'))
-    dfd_new, n_days, n_plots = processDroneData(df_new, os.path.join(app.config['UPLOAD_FOLDER'],'LAI_upto_tasseling.xlsx'))
+    # df_new = processGndData(os.path.join(app.config['UPLOAD_FOLDER'],'GNR631_GroundTruth.xlsx'))
+    # dfd_new, n_days, n_plots = processDroneData(df_new, os.path.join(app.config['UPLOAD_FOLDER'],'LAI_upto_tasseling.xlsx'))
+    df_new = processGndData(df[0])
+    dfd_new, n_days, n_plots = processDroneData(df_new, df[1])
     print(dfd_new)
 
     t = time.time()
@@ -71,8 +74,6 @@ def predict():
     save_DAGBScatter(dfd_new, path9,n_days, n_plots)
     path10 = os.path.join(app.config['UPLOAD_FOLDER'],f'{t}_dagbrscatter.png')
     save_DAGBRScatter(dfd_new, path10,n_days, n_plots)
-
-
 
     return render_template('result.html',data_plot=path1, reg_plot=path2, comp_reg_plot=path3, sla_plot=path5, plb_plot=path6, psb_plot=path7, dsla_plot=path8,
                             agb_plot=path9, agbr_plot=path10)
