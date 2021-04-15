@@ -1,0 +1,10 @@
+Flask==1.1.2
+numpy==1.18.5
+pandas
+scikit-learn
+scipy
+Werkzeug==1.0.1
+matplotlib
+seaborn
+xlrd
+openpyxl

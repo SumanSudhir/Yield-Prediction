@@ -1,0 +1,57 @@
+ {% extends "base.html" %} {% block content %}
+
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="UTF-8">
+    <title>Analyzer</title>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/result.css') }}">
+</head>
+
+<style>
+.content {
+  max-width: 500px;
+  margin: auto;
+}
+</style>
+
+{{ prediction_text }}
+<body style="background: #000;">
+ <div>
+     <br>
+     <!-- Main Input For Receiving Query to our ML -->
+     <h3>Yield Prediction</h3>
+     <img src="{{ data_plot }}" alt="Data Plot">
+     <br>
+     <br>
+     <img src="{{ reg_plot }}" alt="Reg Plot">
+     <br>
+     <br>
+     <img src="{{ comp_reg_plot }}" alt="Scatter Reg Plot">
+     <br>
+     <br>
+     <img src="{{ sla_plot }}" alt="SLA GAUSS Plot">
+     <br>
+     <br>
+     <img src="{{ plb_plot }}" alt="Leaf Biomass Plot">
+     <br>
+     <br>
+     <img src="{{ psb_plot }}" alt="Stem Biomass Plot">
+     <br>
+     <br>
+     <img src="{{ dsla_plot }}" alt="SLA Plot">
+     <br>
+     <br>
+     <img src="{{ agb_plot }}" alt="AGB Plot">
+     <br>
+     <br>
+     <img src="{{ agbr_plot }}" alt="AGBR Plot">
+     <br>
+
+ </div>
+
+</body>
+</html>
+
+{% endblock %}
